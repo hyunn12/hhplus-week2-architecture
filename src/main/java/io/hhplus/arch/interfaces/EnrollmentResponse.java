@@ -13,9 +13,9 @@ public class EnrollmentResponse {
     @Builder
     public static class Enroll {
 
-        Long enrollmentId;
-        Long userId;
-        Long courseId;
+        private Long enrollmentId;
+        private Long userId;
+        private Long courseId;
 
         public static Enroll of(EnrollmentInfo.Main info) {
             return Enroll.builder()

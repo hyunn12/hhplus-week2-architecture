@@ -13,10 +13,10 @@ public class EnrollmentRequest {
     public static class Enroll {
 
         @NotNull
-        Long userId;
+        private Long userId;
 
         @NotNull
-        Long courseId;
+        private Long courseId;
 
         public EnrollmentCommand.Enroll toCommand() {
             return EnrollmentCommand.Enroll.builder()

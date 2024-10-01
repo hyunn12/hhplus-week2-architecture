@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RestController
 @RequestMapping("/api/enroll")
 public class EnrollmentController {
     private final EnrollFacade enrollFacade;
@@ -20,7 +21,7 @@ public class EnrollmentController {
         return new ResponseEntity<>(EnrollmentResponse.Enroll.of(info), HttpStatus.OK);
     }
 
-    @GetMapping("/list}")
+    @GetMapping("/list/{userId}")
     public void list(@PathVariable Long userId) {
         // todo 특강 신청 완료 목록 조회 구현
     }
