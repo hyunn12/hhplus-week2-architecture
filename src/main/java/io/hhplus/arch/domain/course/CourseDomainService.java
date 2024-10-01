@@ -4,6 +4,10 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Service
 public class CourseDomainService {
     private final CourseRepository courseRepository;
@@ -21,6 +25,12 @@ public class CourseDomainService {
     public void decreaseAvailableCount(Course course) {
         course.decreaseAvailableCount();
         courseRepository.save(course);
+    }
+
+    public List<Course> getAvailableCourseList(LocalDate date) {
+        LocalDateTime startOfDay = date.atStartOfDay();
+        LocalDateTime endOfDay = date.atTime(23, 59, 59);
+        return courseRepository.findByCourseDate(startOfDay, endOfDay);
     }
 
 }
