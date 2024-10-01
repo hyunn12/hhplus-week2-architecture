@@ -47,11 +47,12 @@ public class Course {
         this.courseId = courseId;
     }
 
-    public Course(Long courseId, Lecture lecture, int maxCount, int availableCount) {
+    public Course(Long courseId, Lecture lecture, int maxCount, int availableCount, LocalDateTime courseDate) {
         this.courseId = courseId;
         this.lecture = lecture;
         this.maxCount = maxCount;
         this.availableCount = availableCount;
+        this.courseDate = courseDate;
     }
 
     public void decreaseAvailableCount() {

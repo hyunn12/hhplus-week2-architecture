@@ -47,7 +47,7 @@ class EnrollFacadeTest {
         AtomicInteger enrollFailCount = new AtomicInteger(0);
 
         Lecture lecture = new Lecture(1L, "test lecture", "lecturer1");
-        Course course = new Course(1L, lecture, maxCount, maxCount);
+        Course course = new Course(1L, lecture, maxCount, maxCount, LocalDateTime.now());
 
         when(userDomainService.getUserById(anyLong())).thenAnswer(invocation -> {
             Long userId = invocation.getArgument(0);
@@ -107,7 +107,7 @@ class EnrollFacadeTest {
 
         User user = new User(userId);
         Lecture lecture = new Lecture(1L, "test lecture", "lecturer1");
-        Course course = new Course(courseId, lecture, 30, 10);
+        Course course = new Course(courseId, lecture, 30, 10, LocalDateTime.now());
 
         when(userDomainService.getUserById(userId)).thenReturn(user);
 
@@ -140,7 +140,7 @@ class EnrollFacadeTest {
 
         User user = new User(userId);
         Lecture lecture = new Lecture(1L, "test lecture", "lecturer1");
-        Course course = new Course(courseId, lecture, 30, 30);
+        Course course = new Course(courseId, lecture, 30, 30, LocalDateTime.now());
 
         when(userDomainService.getUserById(userId)).thenReturn(user);
 
