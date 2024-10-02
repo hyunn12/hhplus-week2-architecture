@@ -2,6 +2,7 @@ package io.hhplus.arch.interfaces;
 
 import io.hhplus.arch.application.CourseInfo;
 import io.hhplus.arch.application.CourseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class CourseController {
     }
 
     @GetMapping("/list/{date}")
-    public ResponseEntity<List<CourseInfo>> list(@PathVariable LocalDate date) {
+    public ResponseEntity<List<CourseInfo>> list(@PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return new ResponseEntity<>(courseService.getAvailableCourseList(date), HttpStatus.OK);
     }
 
