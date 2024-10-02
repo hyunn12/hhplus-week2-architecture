@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnrollmentInfo {
 
@@ -16,9 +18,21 @@ public class EnrollmentInfo {
         private Long enrollmentId;
         private Long userId;
         private Long courseId;
+        private LocalDateTime courseDate;
+        private Long lectureId;
+        private String title;
+        private String lecturer;
 
         public static Main of(Enrollment enrollment) {
-            return new Main(enrollment.getEnrollmentId(), enrollment.getUser().getUserId(), enrollment.getCourse().getCourseId());
+            return new Main(
+                    enrollment.getEnrollmentId(),
+                    enrollment.getUser().getUserId(),
+                    enrollment.getCourse().getCourseId(),
+                    enrollment.getCourse().getCourseDate(),
+                    enrollment.getCourse().getLecture().getLectureId(),
+                    enrollment.getCourse().getLecture().getTitle(),
+                    enrollment.getCourse().getLecture().getLecturer()
+            );
         }
     }
 }

@@ -15,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -121,9 +123,7 @@ class EnrollFacadeTest {
                 .courseId(courseId)
                 .build();
 
-        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> {
-            enrollFacade.enroll(command);
-        });
+        IllegalStateException exception = assertThrows(IllegalStateException.class, () -> enrollFacade.enroll(command));
 
         assertEquals("이미 신청한 특강입니다.", exception.getMessage());
 
@@ -174,6 +174,54 @@ class EnrollFacadeTest {
         verify(courseDomainService, times(1)).decreaseAvailableCount(course);
 
         assertEquals(29, course.getAvailableCount(), "잔여좌석이 29가 아님");
+    }
+
+
+    @Test
+    @DisplayName("특정 사용자 ID로 신청한 특강 목록이 정상적으로 조회")
+    void testUserEnrolledList() {
+        Long userId = 1L;
+        User user = new User(userId);
+
+        Lecture lecture1 = new Lecture(1L, "Lecture 1", "Lecturer A");
+        Lecture lecture2 = new Lecture(2L, "Lecture 2", "Lecturer B");
+        Lecture lecture3 = new Lecture(3L, "Lecture 3", "Lecturer C");
+
+        Course course1 = new Course(1L, lecture1, 30, 10, LocalDateTime.of(2024, 10, 1, 10, 0), null);
+        Course course2 = new Course(2L, lecture2, 30, 0, LocalDateTime.of(2024, 10, 1, 12, 0), null);
+        Course course3 = new Course(3L, lecture3, 30, 10, LocalDateTime.of(2024, 10, 2, 10, 0), null);
+
+        Enrollment enrollment1 = new Enrollment(1L, user, course1, LocalDateTime.now());
+        Enrollment enrollment2 = new Enrollment(2L, user, course3, LocalDateTime.now());
+        Enrollment enrollment3 = new Enrollment(3L, user, course2, LocalDateTime.now());
+
+        List<Enrollment> mockCourses = Arrays.asList(enrollment1, enrollment3);
+
+        when(enrollmentDomainService.getUserEnrollmentList(user)).thenReturn(mockCourses);
+
+        List<Enrollment> result = enrollmentDomainService.getUserEnrollmentList(user);
+
+        assertNotNull(result, "신청 목록이 null");
+        assertEquals(2, result.size(), "신청 목록 크기 불일치");
+        assertTrue(result.contains(enrollment1), "enrollment1 미포함");
+        assertTrue(result.contains(enrollment3), "enrollment3 미포함");
+
+        verify(enrollmentDomainService, times(1)).getUserEnrollmentList(user);
+    }
+
+    @Test
+    @DisplayName("신청 특강 없을 경우 빈 목록 반환")
+    void testGetCompletedCoursesByUserId_NoCourses() {
+        Long userId = 1L;
+        User user = new User(userId);
+        when(enrollmentDomainService.getUserEnrollmentList(user)).thenReturn(List.of());
+
+        List<Enrollment> result = enrollmentDomainService.getUserEnrollmentList(user);
+
+        assertNotNull(result, "신청 목록이 null");
+        assertTrue(result.isEmpty(), "신청 목록이 비어있지 않음");
+
+        verify(enrollmentDomainService, times(1)).getUserEnrollmentList(user);
     }
 
 }

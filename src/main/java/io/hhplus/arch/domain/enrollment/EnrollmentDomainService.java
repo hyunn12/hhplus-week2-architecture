@@ -5,6 +5,8 @@ import io.hhplus.arch.domain.lecture.Lecture;
 import io.hhplus.arch.domain.user.User;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EnrollmentDomainService {
 
@@ -28,6 +30,10 @@ public class EnrollmentDomainService {
                 .build();
         enrollmentRepository.save(enrollment);
         return enrollment;
+    }
+
+    public List<Enrollment> getUserEnrollmentList(User user) {
+        return enrollmentRepository.findByUser(user);
     }
 
 }

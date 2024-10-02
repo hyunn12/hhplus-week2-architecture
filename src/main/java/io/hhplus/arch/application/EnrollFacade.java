@@ -10,6 +10,9 @@ import io.hhplus.arch.domain.user.User;
 import io.hhplus.arch.domain.user.UserDomainService;
 import jakarta.transaction.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @ApplicationService
 public class EnrollFacade {
     private final EnrollmentDomainService enrollmentDomainService;
@@ -48,6 +51,15 @@ public class EnrollFacade {
         courseDomainService.decreaseAvailableCount(course);
 
         return EnrollmentInfo.Main.of(enrollment);
+    }
+
+    public List<EnrollmentInfo.Main> getUserEnrollList(Long userId) {
+        User user = userDomainService.getUserById(userId);
+        List<Enrollment> enrollmentList = enrollmentDomainService.getUserEnrollmentList(user);
+
+        return enrollmentList.stream()
+                .map(EnrollmentInfo.Main::of)
+                .collect(Collectors.toList());
     }
 
 }
