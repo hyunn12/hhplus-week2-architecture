@@ -1,11 +1,11 @@
 package io.hhplus.arch.interfaces;
 
 import io.hhplus.arch.domain.course.Course;
-import io.hhplus.arch.domain.course.CourseRepository;
 import io.hhplus.arch.domain.lecture.Lecture;
-import io.hhplus.arch.domain.lecture.LectureRepository;
 import io.hhplus.arch.domain.user.User;
-import io.hhplus.arch.domain.user.UserRepository;
+import io.hhplus.arch.infrastructure.CourseRepository;
+import io.hhplus.arch.infrastructure.LectureRepository;
+import io.hhplus.arch.infrastructure.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
