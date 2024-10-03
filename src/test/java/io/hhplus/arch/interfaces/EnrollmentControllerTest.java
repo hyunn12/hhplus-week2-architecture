@@ -119,4 +119,57 @@ class EnrollmentControllerTest {
         Course enrolledCourse = courseRepository.findById(course.getCourseId()).orElseThrow();
         assertEquals(0, enrolledCourse.getAvailableCount(), "남은 좌석 수가 0이 아님");
     }
+
+    @Test
+    @DisplayName("같은 유저가 같은 특강을 5회 신청 시 1회만 성공")
+    void testMultipleEnroll() throws InterruptedException {
+        User user = new User(1L);
+        userRepository.save(user);
+
+        int totalAttemptCount = 5;
+
+        ExecutorService executor = Executors.newFixedThreadPool(totalAttemptCount);
+        CountDownLatch latch = new CountDownLatch(totalAttemptCount);
+        AtomicInteger successCount = new AtomicInteger(0);
+        AtomicInteger failCount = new AtomicInteger(0);
+
+        for (int i = 0; i < totalAttemptCount; i++) {
+            executor.submit(() -> {
+                try {
+                    long courseId = course.getCourseId();
+
+                    EnrollmentRequest.Enroll request =
+                            EnrollmentRequest.Enroll.builder()
+                                    .userId(user.getUserId())
+                                    .courseId(courseId)
+                                    .build();
+
+                    String url = "http://localhost:" + port + "/api/enroll/enroll";
+
+                    ResponseEntity<EnrollmentResponse.Enroll> response =
+                            restTemplate.postForEntity(url, request, EnrollmentResponse.Enroll.class);
+
+                    if (response.getStatusCode().is2xxSuccessful()) {
+                        successCount.incrementAndGet();
+                    } else {
+                        failCount.incrementAndGet();
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+        executor.shutdown();
+
+        assertEquals(1, successCount.get(), "신청 성공 횟수가 1번이 아님");
+        assertEquals(4, failCount.get(), "신청 실패 횟수가 4번이 아님");
+
+        Course enrolledCourse = courseRepository.findById(course.getCourseId()).orElseThrow();
+        assertEquals(29, enrolledCourse.getAvailableCount(), "남은 좌석 수가 29가 아님");
+    }
+
 }
