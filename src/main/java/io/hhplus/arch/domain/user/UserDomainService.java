@@ -1,5 +1,6 @@
 package io.hhplus.arch.domain.user;
 
+import io.hhplus.arch.infrastructure.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

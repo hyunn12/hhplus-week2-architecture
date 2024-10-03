@@ -3,6 +3,7 @@ package io.hhplus.arch.domain.enrollment;
 import io.hhplus.arch.domain.course.Course;
 import io.hhplus.arch.domain.lecture.Lecture;
 import io.hhplus.arch.domain.user.User;
+import io.hhplus.arch.infrastructure.EnrollmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
