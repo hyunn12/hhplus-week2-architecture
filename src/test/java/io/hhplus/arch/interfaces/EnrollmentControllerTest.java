@@ -49,19 +49,24 @@ class EnrollmentControllerTest {
 
     @BeforeEach
     void setUp() {
-        for (int i = 1; i <= 30; i++) {
-            User user = new User((long) i);
-            userRepository.save(user);
-        }
         Lecture lecture = new Lecture(1L, "test", "tester");
         course = new Course(1L, lecture, 30, 30, LocalDateTime.of(2024, 10, 1, 10, 0));
         lectureRepository.save(lecture);
         courseRepository.save(course);
     }
 
+    void set40Users() {
+        for (int i = 1; i <= 40; i++) {
+            User user = new User((long) i);
+            userRepository.save(user);
+        }
+    }
+
     @Test
     @DisplayName("동시에 40개의 요청이 들어올 경우 30개만 신청 성공")
     void testConcurrencyEnrollLimit() throws InterruptedException {
+        set40Users();
+
         int maxCount = 30;
         int totalUserCount = 40;
 
