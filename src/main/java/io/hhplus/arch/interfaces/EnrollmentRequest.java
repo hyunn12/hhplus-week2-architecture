@@ -3,6 +3,7 @@ package io.hhplus.arch.interfaces;
 import io.hhplus.arch.application.EnrollmentCommand;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class EnrollmentRequest {
 
     @Getter
+    @Builder
     public static class Enroll {
 
         @NotNull
