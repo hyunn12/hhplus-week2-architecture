@@ -1,5 +1,6 @@
-package io.hhplus.arch.domain.enrollment;
+package io.hhplus.arch.infrastructure;
 
+import io.hhplus.arch.domain.enrollment.Enrollment;
 import io.hhplus.arch.domain.lecture.Lecture;
 import io.hhplus.arch.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;

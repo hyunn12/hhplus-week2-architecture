@@ -1,5 +1,6 @@
-package io.hhplus.arch.domain.course;
+package io.hhplus.arch.infrastructure;
 
+import io.hhplus.arch.domain.course.Course;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;
