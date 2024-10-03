@@ -1,5 +1,6 @@
 package io.hhplus.arch.domain.course;
 
+import io.hhplus.arch.infrastructure.CourseRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
