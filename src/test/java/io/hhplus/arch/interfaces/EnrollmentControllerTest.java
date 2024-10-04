@@ -6,6 +6,8 @@ import io.hhplus.arch.domain.user.User;
 import io.hhplus.arch.infrastructure.CourseRepository;
 import io.hhplus.arch.infrastructure.LectureRepository;
 import io.hhplus.arch.infrastructure.UserRepository;
+import io.hhplus.arch.interfaces.dto.EnrollmentRequest;
+import io.hhplus.arch.interfaces.dto.EnrollmentResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package io.hhplus.arch.interfaces;
+package io.hhplus.arch.interfaces.dto;
 
 import io.hhplus.arch.application.EnrollmentCommand;
 import jakarta.validation.constraints.NotNull;

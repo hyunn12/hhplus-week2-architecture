@@ -1,4 +1,4 @@
-package io.hhplus.arch.interfaces;
+package io.hhplus.arch.interfaces.api;
 
 import io.hhplus.arch.application.CourseInfo;
 import io.hhplus.arch.application.CourseService;

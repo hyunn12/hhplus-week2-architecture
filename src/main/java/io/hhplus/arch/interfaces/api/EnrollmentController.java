@@ -1,7 +1,9 @@
-package io.hhplus.arch.interfaces;
+package io.hhplus.arch.interfaces.api;
 
 import io.hhplus.arch.application.EnrollFacade;
 import io.hhplus.arch.application.EnrollmentInfo;
+import io.hhplus.arch.interfaces.dto.EnrollmentRequest;
+import io.hhplus.arch.interfaces.dto.EnrollmentResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

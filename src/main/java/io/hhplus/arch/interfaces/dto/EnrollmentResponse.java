@@ -1,4 +1,4 @@
-package io.hhplus.arch.interfaces;
+package io.hhplus.arch.interfaces.dto;
 
 import io.hhplus.arch.application.EnrollmentInfo;
 import lombok.AccessLevel;
