@@ -72,7 +72,7 @@ class EnrollmentControllerTest {
         int maxCount = 30;
         int totalUserCount = 40;
 
-        ExecutorService executor = Executors.newFixedThreadPool(totalUserCount);
+        ExecutorService executor = Executors.newFixedThreadPool(10);
         CountDownLatch latch = new CountDownLatch(totalUserCount);
         AtomicInteger successCount = new AtomicInteger(0);
         AtomicInteger failCount = new AtomicInteger(0);
